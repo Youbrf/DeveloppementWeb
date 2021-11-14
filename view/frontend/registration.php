@@ -1,7 +1,7 @@
 <?php $title = 'Registration'; ?>
 
 <?php ob_start(); ?>
-<form method="post" action="formulaire.php">
+<form method="post" action="index.php?action=AddUser">
     <label for="nom">Nom </label>
     <input type="text" name="nom" placeholder="Nom"><br>
     <label for="prenom">Prénom </label>
