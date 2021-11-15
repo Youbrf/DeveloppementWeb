@@ -11,6 +11,18 @@ function C_Registration(){
 }
 
 function C_Add_User($nom,$prenom,$adresse,$code_postal,$date_de_naissance,$adresse_mail,$pseudo,$mot_de_passe){
-    add_user($nom,$prenom,$adresse,$code_postal,$date_de_naissance,$adresse_mail,$pseudo,$mot_de_passe);
+    M_add_user($nom,$prenom,$adresse,$code_postal,$date_de_naissance,$adresse_mail,$pseudo,$mot_de_passe);
     require('view/frontend/profil.php');
+}
+
+function C_Login(){
+    require('view/frontend/login.php');
+}
+
+function C_Connected_User(){
+    require('view/frontend/user_profil.php');
+}
+function C_Login_User($pseudo,$password){
+    M_login_user($pseudo,$password);
+    require('view/frontend/user_profil.php');
 }

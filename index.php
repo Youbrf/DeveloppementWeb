@@ -10,6 +10,16 @@ try {
  
         elseif ($_GET['action'] == 'Registration') {
             C_Registration();
+        }
+        elseif ($_GET['action'] == 'Login') {
+            if (isset($_SESSION['id'])) {
+                C_Connected_User();
+            }else {
+                C_Login();
+            }
+        }
+        elseif ($_GET['action'] == 'UserProfil') {
+            C_Login_User($_POST['pseudo'],$_POST['password']);
         } 
 
         elseif ($_GET['action'] == 'AddUser') {

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 
@@ -12,6 +13,7 @@
         <nav>
             <a href="index.php">Accueil</a>
             <a href="index.php?action=Registration">Registration</a>
+            <a href="index.php?action=Login">Login</a>
         </nav>
     </header>
     <?= $content ?>
