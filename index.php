@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require('controller/frontend.php');
 
@@ -7,21 +8,26 @@ try {
         if ($_GET['action'] == 'accueil') {
             C_Accueil();
         }
- 
         elseif ($_GET['action'] == 'Registration') {
             C_Registration();
         }
         elseif ($_GET['action'] == 'Login') {
             if (isset($_SESSION['id'])) {
-                C_Connected_User();
+                header("Location: index.php?action=UserProfil");
             }else {
                 C_Login();
             }
         }
+        elseif ($_GET['action'] == 'Logout') {
+            C_Logout();
+        }
         elseif ($_GET['action'] == 'UserProfil') {
-            C_Login_User($_POST['pseudo'],$_POST['password']);
-        } 
-
+            if (isset($_SESSION['id'])) {
+                C_Data_User_id($_SESSION['id']);
+            }else{
+                C_Login_User($_POST['pseudo'],$_POST['password']);
+            }
+        }
         elseif ($_GET['action'] == 'AddUser') {
             if (strcmp($_POST['mot_de_passe'],$_POST['confirmation_mot_de_passe'])==0) {
                 if (!empty($_POST['nom']) 

@@ -7,6 +7,12 @@
                 <tr>
                     <td><label for="pseudo">Login</label></td>
                     <td><input type="text" name="pseudo" placeholder="GoldenHour"></td>
+                    <td>
+                        
+                        <?php if(is_null($data)) {
+                            print_r($data);
+                        }?>
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="password">Password</label></td>
