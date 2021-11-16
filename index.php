@@ -14,6 +14,9 @@ try {
         elseif ($_GET['action'] == 'Login') {
             if (isset($_SESSION['id'])) {
                 header("Location: index.php?action=UserProfil");
+            }elseif (!empty($_POST['pseudo']) && !empty($_POST['password'])) {
+                C_Login_User($_POST['pseudo'],$_POST['password']);
+                header("Location: index.php?action=UserProfil");
             }else {
                 C_Login();
             }
@@ -25,7 +28,7 @@ try {
             if (isset($_SESSION['id'])) {
                 C_Data_User_id($_SESSION['id']);
             }else{
-                C_Login_User($_POST['pseudo'],$_POST['password']);
+            //     C_Login_User($_POST['pseudo'],$_POST['password']);
             }
         }
         elseif ($_GET['action'] == 'AddUser') {
