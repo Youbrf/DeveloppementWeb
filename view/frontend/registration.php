@@ -1,7 +1,7 @@
 <?php $title = 'Registration'; ?>
 
 <?php ob_start(); ?>
-<div align=center>
+<div id="form">
     <form method="post" action="index.php?action=AddUser">
         <label for="nom">Nom </label>
         <input type="text" name="nom" placeholder="Nom"><br>
@@ -24,6 +24,5 @@
         <input type="submit" value="s'inscrire">
     </form>
 </div>
-
 <?php $content = ob_get_clean(); ?>
 <?php require('template.php'); ?>

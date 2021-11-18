@@ -30,7 +30,7 @@ function M_data_user_id($id){
     
     return $resultat;
 }
-function M_login_user($pseudo,$password){
+function M_login_user($pseudo,$password){  
     $db=dbConnect();
     //  Récupération de l'utilisateur et de son pass hashé
     $req = $db->prepare('SELECT * FROM membres WHERE pseudo = :pseudo');
@@ -43,7 +43,12 @@ function M_login_user($pseudo,$password){
 
     if (!$resultat)
     {
-        return $erreur = ' 1 Mauvais identifiant ou mot de passe !';
+        if (empty($pseudo) AND empty($password)) {
+            return $erreur = "Tous les champs doivent être remplie";
+        }else{
+            return $erreur = "L'identifiant ou le mot de passe sont incorrect";
+        }
+        
     }
     else
     {
@@ -53,7 +58,7 @@ function M_login_user($pseudo,$password){
             return $resultat;          
         }
         else {
-            return $erreur = '  Mauvais mot de passe ou identifiant!';
+            return $erreur = "L'identifiant ou le mot de passe sont incorrect";
         }
     }
 }

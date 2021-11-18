@@ -9,27 +9,24 @@ try {
             C_Accueil();
         }
         elseif ($_GET['action'] == 'Registration') {
-            C_Registration();
+            if (isset($_SESSION['id'])){
+                header("Location: index.php?action=Login");
+            }else {
+                C_Registration();
+            }
+            
         }
         elseif ($_GET['action'] == 'Login') {
-            if (isset($_SESSION['id'])) {
-                header("Location: index.php?action=UserProfil");
-            }elseif (!empty($_POST['pseudo']) && !empty($_POST['password'])) {
+            if (isset($_POST['login'])) {
                 C_Login_User($_POST['pseudo'],$_POST['password']);
-                header("Location: index.php?action=UserProfil");
+            }elseif (isset($_SESSION['id'])) {
+                C_Data_User_id($_SESSION['id']);
             }else {
-                C_Login();
+                C_login();
             }
         }
         elseif ($_GET['action'] == 'Logout') {
             C_Logout();
-        }
-        elseif ($_GET['action'] == 'UserProfil') {
-            if (isset($_SESSION['id'])) {
-                C_Data_User_id($_SESSION['id']);
-            }else{
-            //     C_Login_User($_POST['pseudo'],$_POST['password']);
-            }
         }
         elseif ($_GET['action'] == 'AddUser') {
             if (strcmp($_POST['mot_de_passe'],$_POST['confirmation_mot_de_passe'])==0) {
