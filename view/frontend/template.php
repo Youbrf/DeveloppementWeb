@@ -14,7 +14,7 @@
         <nav>
             <ul id="menu">
                 <li><a href="index.php">Accueil</a></li>
-                <li><a href="index.php?action=MiniChat">MiniChat</a></li>
+                <li><a href="index.php?action=Chat">MiniChat</a></li>
                 <li><a href="index.php?action=Registration">Registration</a></li>
                 <li><a href="index.php?action=Login">Login</a></li>
                 <li><a href="index.php?action=Logout">Logout</a></li>
