@@ -52,7 +52,16 @@ try {
                 throw new Exception('Les mots de passes ne sont pas identique !');
             }
             
-        }     
+        }
+        elseif ($_GET['action'] == 'Chat') {
+            if (isset($_POST['insertchat'])) {
+                C_Insert_Chat($_SESSION['pseudo'],$_POST['message']);
+                C_Chat();
+            }else {
+                C_Chat();
+            }
+            
+        }
     }
     else {
         C_Accueil();

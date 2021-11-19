@@ -2,6 +2,18 @@
 
 require('model/frontend.php');
 
+function C_Chat(){
+    $reponse=M_getchat();
+    require('view/frontend/chat.php');
+}
+function C_Insert_Chat($pseudo,$message){
+    M_insertchat($pseudo,$message);
+}
+
+
+
+
+
 function C_Accueil(){
     require('view/frontend/accueil.php');
 }

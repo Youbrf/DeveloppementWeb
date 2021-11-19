@@ -66,3 +66,16 @@ function M_logout(){
     session_destroy();
     header("Location: index.php");
 }
+function M_getchat(){
+    $db=dbConnect();
+    $reponse = $db->query('SELECT * FROM chat ORDER BY ID desc LIMIT 0,05');
+    return $reponse;
+}
+function M_insertChat($pseudo,$message){
+    $db=dbConnect();
+    $req = $db->prepare('INSERT INTO `chat`(`ID`, `Pseudo`, `chat`) VALUES (\'\', :pseudo, :chat)');
+    $req -> execute(array(
+        'pseudo' => $pseudo,
+        'chat' => $message
+    ));
+}
