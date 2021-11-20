@@ -2,16 +2,31 @@
 
 require('model/frontend.php');
 
-function C_Chat(){
-    $reponse=M_getchat();
-    require('view/frontend/chat.php');
+function listPosts()
+{
+    $posts = M_getposts();
+
+    require('view/frontend/blog.php');
 }
-function C_Insert_Chat($pseudo,$message){
-    M_insertchat($pseudo,$message);
+
+function post()
+{
+    $post = M_getPost($_GET['id']);
+    $comments = getComments($_GET['id']);
+
+    require('view/frontend/blog_comments.php');
 }
+function addComment($postId, $author, $comment)
+{
+    $affectedLines = postComment($postId, $author, $comment);
 
-
-
+    if ($affectedLines === false) {
+        throw new Exception('Impossible d\'ajouter le commentaire !');
+    }
+    else {
+        header('Location: index.php?action=post&id=' . $postId);
+    }
+}
 
 
 function C_Accueil(){
@@ -42,4 +57,11 @@ function C_Login_User($pseudo,$password){
 }
 function C_Logout(){
     M_logout();
+}
+function C_Chat(){
+    $reponse=M_getchat();
+    require('view/frontend/chat.php');
+}
+function C_Insert_Chat($pseudo,$message){
+    M_insertchat($pseudo,$message);
 }
