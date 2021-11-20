@@ -68,7 +68,7 @@ function M_logout(){
 }
 function M_getchat(){
     $db=dbConnect();
-    $reponse = $db->query('SELECT * FROM chat ORDER BY ID desc LIMIT 0,05');
+    $reponse = $db->query('SELECT * FROM chat ORDER BY ID desc LIMIT 0,10');
     return $reponse;
 }
 function M_insertChat($pseudo,$message){

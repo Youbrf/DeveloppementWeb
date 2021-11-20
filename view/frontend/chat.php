@@ -3,10 +3,6 @@
     .chat{
         display: flex;
         flex-direction: column;
-        /* margin-left: 25%;
-        margin-right: 25%;
-        border-radius: 5px;
-        background: rgba(130, 126, 126, 0.53); */
         border-radius: 5px;
         background-color: #f2f2f2;
         padding: 20px;
@@ -26,6 +22,13 @@
     p{
         margin-left:5%;
         margin-right:5%;
+    }
+    a{
+        text-decoration:none;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px;
+        border-radius: 4px;
     }
 </style>
 <?php ob_start(); ?>
@@ -49,6 +52,12 @@
                     <label for="message">Message</label><input type="text" name='message' placeholder='écrire votre message ..'>
                     <input type="submit" name="insertchat" value='Connection'>
                 </form>
+            </div>
+        <?php
+        }else {?>
+            <div id="form">
+                <a href="index.php?action=Login">SIGN IN</a>
+                <a href="index.php?action=Registration">REGISTER</a>
             </div>
         <?php
         }
