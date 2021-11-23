@@ -2,6 +2,10 @@ body{
     display: flex;
     flex-direction: column;
 }
+h1{
+  margin-left: 35%;
+}
+
 /* navigation */
 
 ul#menu {
@@ -31,7 +35,7 @@ ul#menu {
   }
 
 /* formulaire */
-input[type=text], input[type=int], input[type=email], input[type=password] {
+input[type=text], input[type=int], input[type=email], input[type=password], textarea {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -64,3 +68,7 @@ input[type=text], input[type=int], input[type=email], input[type=password] {
     margin-left: 25%;
     margin-right: 25%;
   }
+  .news{
+    width:50%;
+    margin-left:25%;
+}
