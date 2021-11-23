@@ -1,41 +1,10 @@
 <?php
-
-function M_getposts(){
-    $db = dbConnect();
-    $req = $db->query('SELECT id, title, content, DATE_FORMAT(create_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY create_date DESC LIMIT 0, 5');
-
-    return $req;
-}
-
-function M_getpost($post_id){
-    $db = dbConnect();
-    $req = $db->prepare('SELECT id, title, content, DATE_FORMAT(create_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts WHERE id = ?');
-    $req->execute(array($post_id));
-    $post = $req->fetch();
-
-    return $post;
-}
-function getComments($post_id)
-{
-    $db = dbConnect();
-    $comments = $db->prepare('SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE post_id = ? ORDER BY comment_date DESC');
-    $comments->execute(array($post_id));
-
-    return $comments;
-}
-function postComment($post_id, $author, $comment)
-{
-    $db = dbConnect();
-    $comments = $db->prepare('INSERT INTO comments(post_id, author, comment, comment_date) VALUES(?, ?, ?, NOW())');
-    $affectedLines = $comments->execute(array($post_id, $author, $comment));
-
-    return $affectedLines;
-}
-
+// database connect
 function dbConnect(){
     $db = new PDO('mysql:host=localhost;dbname=website;charset=utf8', 'root', '',array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     return $db;
 }
+// add and register users + login
 function M_add_user($nom,$prenom,$adresse,$code_postal,$date_de_naissance,$adresse_mail,$pseudo,$mot_de_passe){
     $db=dbConnect();
     $hash_pwd = password_hash($mot_de_passe,PASSWORD_DEFAULT);
@@ -98,6 +67,29 @@ function M_logout(){
     session_destroy();
     header("Location: index.php");
 }
+// Modify data users
+function M_modify_pwd($newPwd,$id){
+    $db = dbConnect();
+    $hash_pwd = password_hash($newPwd,PASSWORD_DEFAULT);
+    $req = $db->prepare('UPDATE `membres` SET `psswd` = ? WHERE `membres`.`id` = ?');
+    $req->execute(array($hash_pwd,$id));
+}
+function M_modify_email($newEmail,$id){
+    $db = dbConnect();
+    $req = $db->prepare('UPDATE `membres` SET `e-mail` = ? WHERE `membres`.`id` = ?');
+    $req->execute(array($newEmail,$id));
+}
+function M_modify_cp($newcp,$id){
+    $db = dbConnect();
+    $req = $db->prepare('UPDATE `membres` SET `code_postal` = ? WHERE `membres`.`id` = ?');
+    $req->execute(array($newcp,$id));
+}
+function M_modify_adresse($newAdresse,$id){
+    $db = dbConnect();
+    $req = $db->prepare('UPDATE `membres` SET `adresse` = ? WHERE `membres`.`id` = ?');
+    $req->execute(array($newAdresse,$id));
+}
+// Chat
 function M_getchat(){
     $db=dbConnect();
     $reponse = $db->query('SELECT * FROM chat ORDER BY ID desc LIMIT 0,10');
@@ -110,4 +102,33 @@ function M_insertChat($pseudo,$message){
         'pseudo' => $pseudo,
         'chat' => $message
     ));
+}
+// display posts
+function M_get_posts(){
+    $db = dbConnect();
+    $req = $db->query('SELECT id, title, content, DATE_FORMAT(create_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY create_date DESC LIMIT 0, 5');
+
+    return $req;
+}
+function M_get_post($post_id){
+    $db = dbConnect();
+    $req = $db->prepare('SELECT id, title, content, DATE_FORMAT(create_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts WHERE id = ?');
+    $req->execute(array($post_id));
+    $post = $req->fetch();
+
+    return $post;
+}
+function M_get_comments($post_id){
+    $db = dbConnect();
+    $comments = $db->prepare('SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE post_id = ? ORDER BY comment_date DESC');
+    $comments->execute(array($post_id));
+
+    return $comments;
+}
+function M_post_comment($post_id, $author, $comment){
+    $db = dbConnect();
+    $comments = $db->prepare('INSERT INTO comments(post_id, author, comment, comment_date) VALUES(?, ?, ?, NOW())');
+    $affectedLines = $comments->execute(array($post_id, $author, $comment));
+
+    return $affectedLines;
 }

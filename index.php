@@ -63,11 +63,11 @@ try {
             
         }
         elseif ($_GET['action'] == 'Blog') {
-            listPosts();
+            C_List_Posts();
         }
         elseif ($_GET['action'] == 'post') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
-                post();
+                C_Post();
             }
             else {
                 // Erreur ! On arrête tout, on envoie une exception, donc au saute directement au catch
@@ -77,7 +77,7 @@ try {
         elseif ($_GET['action'] == 'addComment') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 if (!empty($_POST['comment'])) {
-                    addComment($_GET['id'], $_SESSION['pseudo'], $_POST['comment']);
+                    C_Add_Comment($_GET['id'], $_SESSION['pseudo'], $_POST['comment']);
                 }
                 else {
                     // Autre exception
@@ -87,6 +87,35 @@ try {
             else {
                 // Autre exception
                 throw new Exception('Aucun identifiant de billet envoyé');
+            }
+        }
+        // modification user
+        elseif ($_GET['action'] == 'Madresse') {
+            if (isset($_POST['Modify'])) {
+                C_Modify_adresse($_POST['adresse'],$_SESSION['id']);
+            }else {
+                C_View_Mod_Adresse($_SESSION['id']);
+            }
+        }
+        elseif ($_GET['action'] == 'Mcp') {
+            if (isset($_POST['Modify'])) {
+                C_Modify_cp(intval($_POST['cp']),$_SESSION['id']);
+            }else {
+                C_View_Mod_cp($_SESSION['id']);
+            }
+        }
+        elseif ($_GET['action'] == 'Memail') {
+            if (isset($_POST['Modify'])) {
+                C_Modify_Email($_POST['adresse_mail'],$_SESSION['id']);
+            }else {
+                C_View_Mod_Email($_SESSION['id']);
+            }
+        }
+        elseif ($_GET['action'] == 'Mpwd') {
+            if (isset($_POST['Modify'])) {
+                C_Modify_Pwd($_POST['mot_de_passe'],$_POST['confirmation_mot_de_passe'],$_SESSION['id']);
+            }else {
+                C_View_Mod_Pwd($_SESSION['id']);
             }
         }
     }
