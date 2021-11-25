@@ -1,9 +1,16 @@
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
-<h1>Mon super blog !</h1>
-<p>Derniers billets du blog :</p>
+<h1>NEWS BILLETS</h1>
 
+<div id="form">
+    <form method="post" >
+        <label for="rbillet">Recherche de billets</label>
+        <input type="text" name="rbillet" placeholder="Titre du billet"><br>
+        <?php if(isset($erreur)){echo $erreur;}?>
+        <input type="submit" name="search" value="Search">
+    </form>
+</div>
 
 <?php
 while ($data = $posts->fetch())

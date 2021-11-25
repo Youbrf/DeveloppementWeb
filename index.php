@@ -63,7 +63,11 @@ try {
             
         }
         elseif ($_GET['action'] == 'Blog') {
-            C_List_Posts();
+            if (isset($_POST['search'])) {
+                C_Search_Posts($_POST['rbillet']);
+            }else {
+                C_List_Posts();
+            }
         }
         elseif ($_GET['action'] == 'post') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {

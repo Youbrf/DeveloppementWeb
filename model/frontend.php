@@ -132,3 +132,9 @@ function M_post_comment($post_id, $author, $comment){
 
     return $affectedLines;
 }
+function M_search_billet($title){
+    $db = dbConnect();
+    $requete = "SELECT id, title, content, DATE_FORMAT(create_date, '%d/%m/%Y à %Hh%imin%ss') AS creation_date_fr FROM posts WHERE title LIKE '%$title%' ";
+    $req = $db->query($requete);
+    return $req;
+}

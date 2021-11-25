@@ -103,6 +103,10 @@ function C_List_Posts(){
     $posts = M_get_posts();
     require('view/frontend/blog.php');
 }
+function C_Search_Posts($title){
+    $posts = M_search_billet($title);
+    require('view/frontend/blog.php');
+}
 function C_Post(){
     $post = M_get_post($_GET['id']);
     $comments = M_get_comments($_GET['id']);
