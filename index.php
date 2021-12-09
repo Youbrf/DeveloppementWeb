@@ -2,6 +2,8 @@
 session_start();
 
 require('controller/frontend.php');
+require_once "controller/ProductControllers.class.php";
+$ProductController= new ProductControllers;
 
 try {
     if (isset($_GET['action'])) {
@@ -121,6 +123,9 @@ try {
             }else {
                 C_View_Mod_Pwd($_SESSION['id']);
             }
+        }
+        elseif ($_GET['action'] == 'Products') {
+            $ProductController->productsShowAll();
         }
     }
     else {
