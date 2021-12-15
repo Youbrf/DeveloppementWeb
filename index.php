@@ -1,4 +1,5 @@
 <?php
+require_once "model/Product.class.php";
 session_start();
 
 require('controller/frontend.php');
@@ -125,7 +126,16 @@ try {
             }
         }
         elseif ($_GET['action'] == 'Products') {
-            $ProductController->productsShowAll();
+            if (isset($_GET['id'])) {
+                $ProductController->C_addPanier();
+                $ProductController->productsShowAll();
+            }else {
+                $ProductController->productsShowAll();
+            }
+        }
+        //panier
+        elseif ($_GET['action'] == 'Panier') {
+                $ProductController->C_showPanier();
         }
     }
     else {

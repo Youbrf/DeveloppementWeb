@@ -1,4 +1,4 @@
-<?php $title = 'Product'; ?>
+<?php $title = 'Paniers'; ?>
 
 <?php ob_start(); ?>
 <style>
@@ -11,7 +11,7 @@
     padding: 10px;
     }
 </style>
-    <h1>les produits sont ici </h1>
+    <h1>Votre panier est  ici </h1>
     <table>
         <tr>
             <th>Picture</th>
@@ -25,7 +25,7 @@
             <td><img src="public/image/<?= $Products[$i]->getImg(); ?>" width="60px;"></td>
             <td><?= $Products[$i]->getName(); ?></td>
             <td><?= number_format($Products[$i]->getPrice(),2,',',' ')?> €</td>
-            <td><a class="add" href="index.php?action=Products&id=<?= $Products[$i]->getId();?>"><img src="public/image/icons/add.png" width="30px"></a></td>
+            <td><a class="add" href="view/frontend/addpanier.php?id=<?= $Products[$i]->getId();?>"><img src="public/image/icons/add.png" width="30px"></a></td>
         </tr>
        
     <?php
