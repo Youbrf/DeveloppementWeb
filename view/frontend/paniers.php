@@ -18,19 +18,17 @@
             <th>Name</th>
             <th>Price</th>
         </tr>
-    <?php
-    for ($i=0; $i< count($Products);$i++) :
-    ?>
+    <?php 
+    foreach ($Products as $shop){
+        ?>
         <tr>
-            <td><img src="public/image/<?= $Products[$i]->getImg(); ?>" width="60px;"></td>
-            <td><?= $Products[$i]->getName(); ?></td>
-            <td><?= number_format($Products[$i]->getPrice(),2,',',' ')?> €</td>
-            <td><a class="add" href="view/frontend/addpanier.php?id=<?= $Products[$i]->getId();?>"><img src="public/image/icons/add.png" width="30px"></a></td>
+            <td><img src="public/image/<?= $shop->getImg(); ?>" width="60px;"></td>
+            <td><?= $shop->getName(); ?></td>
+            <td><?= number_format($shop->getPrice(),2,',',' ')?> €</td>
+            <td><a class="add" href="index.php?action=Panier&id=<?= $shop->getId();?>"><img src="public/image/icons/del.png" width="30px"></a></td>
         </tr>
-       
-    <?php
-        endfor;
-    ?>
+        <?php
+    }?>
     </table> 
 
 <?php $content = ob_get_clean(); ?>

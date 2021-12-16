@@ -33,11 +33,15 @@ class ProductModel{
         $_SESSION['panier'][$_GET['id']]=$product;
     }
     public function M_getPanier(){
-        var_dump($_SESSION['panier'][3]->getName());
         if (isset($_SESSION['panier'])) {
             return $_SESSION['panier'];
         }else {
             return array();
+        }
+    }
+    public function M_delPanier(){
+        if (isset($_SESSION['panier'][$_GET['id']])) {
+            unset($_SESSION['panier'][$_GET['id']]);
         }
     }
 

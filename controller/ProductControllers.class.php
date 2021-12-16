@@ -25,4 +25,7 @@ class ProductControllers{
     public function C_addPanier(){
         $this->ProductModel->M_addPanier();
     }
+    public function C_delPanier(){
+        $this->ProductModel->M_delPanier();
+    }
 }

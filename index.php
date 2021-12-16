@@ -135,7 +135,12 @@ try {
         }
         //panier
         elseif ($_GET['action'] == 'Panier') {
+            if (isset($_GET['id'])) {
+                $ProductController->C_delPanier();
                 $ProductController->C_showPanier();
+            }else {
+                $ProductController->C_showPanier();
+            }
         }
     }
     else {
