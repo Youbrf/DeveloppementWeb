@@ -6,7 +6,7 @@
     </div>
     <div>
         <p>
-            Votre compte à bien été enregistré. Vous pouvez à présent vous connecter.
+            Votre compte à bien été enregistré. Vous pouvez à présent vous connecter. <a href="index.php?action=Login">Login</a>
         </p>
     </div>
 <?php $content = ob_get_clean(); ?>

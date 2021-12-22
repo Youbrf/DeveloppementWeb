@@ -56,6 +56,7 @@ function M_login_user($pseudo,$password){
         if ($isPasswordCorrect) {
             $_SESSION['id'] = $resultat['id'];
             $_SESSION['pseudo']=$resultat['pseudo'];
+            $_SESSION['avatar']=$resultat['avatar'];
             return $resultat;          
         }
         else {
@@ -89,6 +90,31 @@ function M_modify_adresse($newAdresse,$id){
     $req = $db->prepare('UPDATE `membres` SET `adresse` = ? WHERE `membres`.`id` = ?');
     $req->execute(array($newAdresse,$id));
 }
+// Avatar
+function M_modify_avatar($newAvatar){
+    $tailleMax = 2097152;
+    $extensionsValides = array('jpg','jpeg','gif','png');
+    if ($newAvatar['size']<= $tailleMax) {
+        $extensionUpload=strtolower(substr(strrchr($newAvatar['name'],'.'),1));
+        if (in_array($extensionUpload,$extensionsValides)) {
+            $chemin = "public/avatar/".$_SESSION['id'].".".$extensionUpload;
+            $resultat = move_uploaded_file($newAvatar['tmp_name'],$chemin);
+            if($resultat){
+                $db = dbConnect();
+                $req = $db->prepare('UPDATE `membres` SET `avatar` = ? WHERE `membres`.`id` = ?');
+                $req->execute(array($_SESSION['id'].".".$extensionUpload,$_SESSION['id']));
+                $_SESSION['avatar']=$_SESSION['id'].".".$extensionUpload;
+            }else {
+                return $erreur='Erreur Upload';
+            }
+        }else {
+            return $erreur='Le format n\'est pas correct';
+        }
+    }else {
+        return $erreur = 'La taille de l\'image est trop grande';
+    } 
+}
+
 // Chat
 function M_getchat(){
     $db=dbConnect();

@@ -90,6 +90,28 @@ function C_Modify_Pwd($newPwd,$oldPwd,$id){
         require('view/frontend/updateUser/modpwd.php');
     }    
 }
+// Avatar
+function C_View_Mod_Avatar($id){
+    $data=M_data_user_id($id);
+    require('view/frontend/updateUser/modavatar.php');
+}
+function C_Modify_Avatar($newAvatar,$id){
+    if (empty($newAvatar)) {
+        $data=M_data_user_id($id);
+        require('view/frontend/updateUser/modavatar.php');
+    }else {
+        $erreur=M_modify_avatar($newAvatar);
+        if (empty($erreur)) {
+            C_Data_User_id($id);
+        }else {
+            $data=M_data_user_id($id);
+            require('view/frontend/updateUser/modavatar.php');
+        }
+    }
+    
+}
+
+
 // Chat
 function C_Chat(){
     $reponse=M_getchat();

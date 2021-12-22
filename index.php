@@ -125,6 +125,14 @@ try {
                 C_View_Mod_Pwd($_SESSION['id']);
             }
         }
+        elseif ($_GET['action'] == 'Mavatar') {
+            if (isset($_POST['Modify'])) {
+                C_Modify_Avatar($_FILES['avatar'],$_SESSION['id']);
+            }else {
+                C_View_Mod_Avatar($_SESSION['id']);
+            }
+        }
+        //produits
         elseif ($_GET['action'] == 'Products') {
             if (isset($_GET['id'])) {
                 $ProductController->C_addPanier();
