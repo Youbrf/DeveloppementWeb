@@ -18,6 +18,7 @@
     <?php
         endfor;
     ?>
+<<<<<<< HEAD
     </table>
 
     array(1) { 
@@ -26,3 +27,6 @@
             i:1;s:8:"Iphone X";
             i:2;s:6:"499.99";
             i:3;s:12:"iphone X.jpg";}" } 
+=======
+    </table>
+>>>>>>> 1db52612573ca79899a70e9e777559ac036d72ee
