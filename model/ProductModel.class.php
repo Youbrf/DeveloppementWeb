@@ -30,11 +30,21 @@ class ProductModel{
             'id' => $_GET['id']));
         $resultat = $req->fetch();
         $product = new Product($resultat['produit_id'],$resultat['name'],$resultat['price'],$resultat['img']);
-        $_SESSION['panier'][$_GET['id']]=$product;
+        $data = array($product->getImg(),$product->getName(),$product->getPrice(),$product->getId());
+        $expire = 365*24*3600;
+        $chaine = serialize($data);
+        setcookie("Panier[smartphone]",$chaine,time()+$expire);
+        /* $_SESSION['panier'][$_GET['id']]=$product; */
     }
     public function M_getPanier(){
-        if (isset($_SESSION['panier'])) {
-            return $_SESSION['panier'];
+        if (isset($_COOKIE['Panier'])) {
+            var_dump($_COOKIE["Panier"]["smartphone"]);
+            echo "<br>";
+            $data = $_COOKIE["Panier"]["smartphone"];
+            $panier = unserialize($data);
+            var_dump($panier);
+            echo "<br>";
+            return $panier;
         }else {
             return array();
         }

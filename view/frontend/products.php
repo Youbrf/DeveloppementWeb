@@ -4,34 +4,42 @@
 <style>
     /* tableau product */
     table{
-    border-collapse: collapse;
+        border-collapse: collapse;
+        margin:auto;
     }
     th,td{
-    border: 1px solid black;
-    padding: 10px;
+        text-align: center; 
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 10px;
+    }
+    div#Articles{
+        display:flex;
+    }
+    tr{
+        display:flex;
+        flex-direction:column;
     }
 </style>
-    <h1>les produits sont ici </h1>
-    <table>
-        <tr>
-            <th>Picture</th>
-            <th>Name</th>
-            <th>Price</th>
-        </tr>
-    <?php
+    <h1>Smartphone</h1>
+    <div id='Articles'>
+       <?php
     for ($i=0; $i< count($Products);$i++) :
     ?>
+    <table id='ArticleName'>
         <tr>
-            <td><img src="public/image/<?= $Products[$i]->getImg(); ?>" width="60px;"></td>
+            <td><img src="public/image/<?= $Products[$i]->getImg(); ?>" width="200px;"></td>
             <td><?= $Products[$i]->getName(); ?></td>
             <td><?= number_format($Products[$i]->getPrice(),2,',',' ')?> €</td>
             <td><a class="add" href="index.php?action=Products&id=<?= $Products[$i]->getId();?>"><img src="public/image/icons/add.png" width="30px"></a></td>
         </tr>
-       
+    </table>
     <?php
         endfor;
-    ?>
-    </table> 
+    ?> 
+    </div>    
+    
+     
 
 <?php $content = ob_get_clean(); ?>
 <?php require('template.php'); ?>
