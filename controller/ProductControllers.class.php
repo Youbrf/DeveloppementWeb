@@ -22,10 +22,13 @@ class ProductControllers{
         $Products=$this->ProductModel->M_getPanier();
         require('view/frontend/paniers.php');
     }
-    public function C_addPanier(){
-        $this->ProductModel->M_addPanier();
+    public function C_addPanier($id,$name,$price,$img,$quantity){
+        $this->ProductModel->M_addPanier($id,$name,$price,$img,$quantity);
     }
-    public function C_delPanier(){
-        $this->ProductModel->M_delPanier();
+    public function C_delPanier($id){
+        $this->ProductModel->M_delPanier($id);
+    }
+    public function C_delAllPanier(){
+        $this->ProductModel->C_clearPanier();
     }
 }

@@ -23,35 +23,57 @@ class ProductModel{
         }
     }
     // panier
-    public function M_addPanier(){
-        $db=dbConnect();
-        $req = $db->prepare('SELECT * FROM products WHERE produit_id = :id');
-        $req->execute(array(
-            'id' => $_GET['id']));
-        $resultat = $req->fetch();
-        $product = new Product($resultat['produit_id'],$resultat['name'],$resultat['price'],$resultat['img']);
-        $data = array($product->getImg(),$product->getName(),$product->getPrice(),$product->getId());
+    public function M_addPanier($id,$name,$price,$img,$quantity){
+        if (isset($_COOKIE["Panier"])) {
+            $cookie_data = stripslashes($_COOKIE["Panier"]);
+            $panier_data = json_decode($cookie_data, true);
+        } else {
+            $panier_data=array();
+        }
+        $item_id_list = array_column($panier_data, 'item_id');
+        if (in_array($id,$item_id_list)) {
+            foreach ($panier_data as $key => $value) {
+                if ($panier_data[$key]["item_id"] == $id) {
+                    $panier_data[$key]["item_quantity"] = $panier_data[$key]["item_quantity"] + $quantity;
+                }
+            }
+        }else {
+            $item_array = array(
+            'item_id'           => $id,
+            'item_name'         => $name,
+            'item_price'        => $price,
+            'item_img'          => $img,
+            'item_quantity'     => $quantity
+            );
+            $panier_data[] = $item_array;
+        }
+        $item_data = json_encode($panier_data);
         $expire = 365*24*3600;
-        $chaine = serialize($data);
-        setcookie("Panier[smartphone]",$chaine,time()+$expire);
-        /* $_SESSION['panier'][$_GET['id']]=$product; */
+        setcookie('Panier',$item_data,time()+$expire);
     }
     public function M_getPanier(){
-        if (isset($_COOKIE['Panier'])) {
-            var_dump($_COOKIE["Panier"]["smartphone"]);
-            echo "<br>";
-            $data = $_COOKIE["Panier"]["smartphone"];
-            $panier = unserialize($data);
-            var_dump($panier);
-            echo "<br>";
-            return $panier;
-        }else {
-            return array();
+        if (isset($_COOKIE["Panier"])) {
+            $cookie_data = stripslashes($_COOKIE["Panier"]);
+            $panier_data = json_decode($cookie_data, true);
+            return $panier_data;
+        } else {
+            return null;
         }
     }
-    public function M_delPanier(){
-        if (isset($_SESSION['panier'][$_GET['id']])) {
-            unset($_SESSION['panier'][$_GET['id']]);
+    public function C_clearPanier(){
+        $expire = 365*24*3600;
+        setcookie("Panier","",time()-$expire);
+    }
+    public function M_delPanier($id){
+        $cookie_data = stripslashes($_COOKIE["Panier"]);
+        $panier_data = json_decode($cookie_data, true);
+        foreach ($panier_data as $key => $value) {
+            if ($panier_data[$key]["item_id"] == $id) {
+                unset($panier_data[$key]);
+                $item_data = json_encode($panier_data);
+                $expire = 365*24*3600;
+                setcookie('Panier',$item_data,time()+$expire);
+            }
         }
     }
 

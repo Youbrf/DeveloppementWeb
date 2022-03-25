@@ -126,8 +126,8 @@ try {
             }
         }
         elseif ($_GET['action'] == 'Products') {
-            if (isset($_GET['id'])) {
-                $ProductController->C_addPanier();
+            if (isset($_POST['add_to_item'])) {
+                $ProductController->C_addPanier($_POST['hidden_id'],$_POST['hidden_name'],$_POST['hidden_price'],$_POST['hidden_img'],$_POST['quantity']);
                 $ProductController->productsShowAll();
             }else {
                 $ProductController->productsShowAll();
@@ -136,8 +136,11 @@ try {
         //panier
         elseif ($_GET['action'] == 'Panier') {
             if (isset($_GET['id'])) {
-                $ProductController->C_delPanier();
-                $ProductController->C_showPanier();
+                $ProductController->C_delPanier($_GET['id']);
+                header('Location: index.php?action=Panier');
+            }elseif (isset($_GET['clear'])) {
+                $ProductController->C_delAllPanier();
+                header('Location: index.php?action=Panier');
             }else {
                 $ProductController->C_showPanier();
             }
