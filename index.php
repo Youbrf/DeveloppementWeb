@@ -128,7 +128,7 @@ try {
         elseif ($_GET['action'] == 'Products') {
             if (isset($_POST['add_to_item'])) {
                 $ProductController->C_addPanier($_POST['hidden_id'],$_POST['hidden_name'],$_POST['hidden_price'],$_POST['hidden_img'],$_POST['quantity']);
-                $ProductController->productsShowAll();
+                header('Location: index.php?action=Products');
             }else {
                 $ProductController->productsShowAll();
             }

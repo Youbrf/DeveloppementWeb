@@ -24,6 +24,9 @@ class ProductModel{
     }
     // panier
     public function M_addPanier($id,$name,$price,$img,$quantity){
+        if ($quantity>10) {
+            $quantity=10;
+        }
         if (isset($_COOKIE["Panier"])) {
             $cookie_data = stripslashes($_COOKIE["Panier"]);
             $panier_data = json_decode($cookie_data, true);
@@ -34,7 +37,9 @@ class ProductModel{
         if (in_array($id,$item_id_list)) {
             foreach ($panier_data as $key => $value) {
                 if ($panier_data[$key]["item_id"] == $id) {
-                    $panier_data[$key]["item_quantity"] = $panier_data[$key]["item_quantity"] + $quantity;
+                    if ($panier_data[$key]["item_quantity"] < 10) {
+                        $panier_data[$key]["item_quantity"] = $panier_data[$key]["item_quantity"] + $quantity;
+                    }
                 }
             }
         }else {

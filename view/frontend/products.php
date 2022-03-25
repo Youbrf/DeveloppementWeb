@@ -9,8 +9,6 @@
     }
     th,td{
         text-align: center; 
-        border: 1px solid black;
-        border-radius: 10px;
         padding: 10px;
     }
     div#Articles{
@@ -19,6 +17,8 @@
     tr{
         display:flex;
         flex-direction:column;
+        border: 1px solid black;
+        border-radius: 17px;
     }
     a{
         text-decoration:none;
@@ -34,24 +34,16 @@
     <table id='ArticleName'>
         <tr>
             <form method="post">
-            <td><img src="public/image/<?= $Products[$i]->getImg(); ?>" width="200px;"></td>
-            <td><?= $Products[$i]->getName(); ?></td>
-            <td><?= number_format($Products[$i]->getPrice(),2,',',' ')?> €</td>
-            <td><input type="text" name="quantity" value="1"></td>
-            <input type="hidden" name="hidden_name" value="<?= $Products[$i]->getName(); ?>">
-            <input type="hidden" name="hidden_price" value="<?= $Products[$i]->getPrice(); ?>">
-            <input type="hidden" name="hidden_img" value="<?= $Products[$i]->getImg(); ?>">
-            <input type="hidden" name="hidden_id" value="<?= $Products[$i]->getId(); ?>">
-            <?php  if (isset($_SESSION['id'])) { ?>
-                <td><input type="submit" name="add_to_item" value="Add panier"></td></form>
-            <?php }else { ?>
-                <td>
-                    <div style="padding: 20px;">
-                        <a href="index.php?action=Login">SIGN IN</a>
-                        <a href="index.php?action=Registration">REGISTER</a>
-                    </div>
-                </td>
-            <?php  }  ?>
+                <td><img src="public/image/<?= $Products[$i]->getImg(); ?>" width="200px;"></td>
+                <td><?= $Products[$i]->getName(); ?></td>
+                <td><?= number_format($Products[$i]->getPrice(),2,',',' ')?> €</td>
+                <td><input style="width: 50%; text-align:center;" type="text" name="quantity" value="1"></td>
+                <input type="hidden" name="hidden_name" value="<?= $Products[$i]->getName(); ?>">
+                <input type="hidden" name="hidden_price" value="<?= $Products[$i]->getPrice(); ?>">
+                <input type="hidden" name="hidden_img" value="<?= $Products[$i]->getImg(); ?>">
+                <input type="hidden" name="hidden_id" value="<?= $Products[$i]->getId(); ?>">
+                <td><input type="submit" name="add_to_item" value="Add panier"></td>
+            </form>
         </tr>
     </table>
     <?php  endfor;  ?> 

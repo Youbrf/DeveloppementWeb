@@ -17,8 +17,10 @@
                 <li><a href="index.php?action=Chat">MiniChat</a></li>
                 <li><a href="index.php?action=Blog">Blog/News</a></li>
                 <li><a href="index.php?action=Products">Produits</a></li>
-                <?php if (isset($_SESSION['id'])) { ?>
+                <?php if (isset($_COOKIE['Panier'])) { ?>
                     <li><a href="index.php?action=Panier">Panier</a></li>
+                <?php } ?>
+                <?php if (isset($_SESSION['id'])) { ?>
                     <li><a href="index.php?action=Logout">Logout</a></li>
                 <?php }else {?>
                     <li><a href="index.php?action=Login">Login</a></li>
