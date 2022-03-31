@@ -65,7 +65,7 @@ class ProductModel{
             return null;
         }
     }
-    public function C_clearPanier(){
+    public function M_clearPanier(){
         $expire = 365*24*3600;
         setcookie("Panier","",time()-$expire);
     }
@@ -80,6 +80,17 @@ class ProductModel{
                 setcookie('Panier',$item_data,time()+$expire);
             }
         }
+    }
+    public function M_buyPanier($array){
+        $supprimer = array("[","]");
+        $data = str_replace($supprimer,"",$array);
+        $data2=json_decode($data);
+        foreach ($data2 as $key => $value) {
+            $db = dbConnect();
+            $buy = $db->prepare('INSERT INTO buy_client(id_membres, id_produit, quantity, date_buy) VALUES (?, ?, ?, NOW())');
+            $buy->execute(array($_SESSION['id'], $key, $value));
+        }
+        setcookie('Panier');
     }
 
 }

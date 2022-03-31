@@ -21,6 +21,7 @@
                     <li><a href="index.php?action=Panier">Panier</a></li>
                 <?php } ?>
                 <?php if (isset($_SESSION['id'])) { ?>
+                    <li><a href="index.php?action=Login">Profil</a></li>
                     <li><a href="index.php?action=Logout">Logout</a></li>
                 <?php }else {?>
                     <li><a href="index.php?action=Login">Login</a></li>

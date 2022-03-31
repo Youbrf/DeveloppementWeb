@@ -22,6 +22,7 @@
                 <th>total</th>
                 <th>Action</th>
             </tr>
+            <form method="post">
             <?php  if (isset($Products)) {
                 $total=0; 
                 foreach ($Products as $key => $value) {  ?>
@@ -32,6 +33,8 @@
                     <td><?= number_format($value["item_price"],2,',',' ')?> €</td>
                     <td><?= number_format($value["item_quantity"]*$value["item_price"],2,',',' ')?> €</td>
                     <td><a class="add" href="index.php?action=Panier&id=<?= $value["item_id"];?>"><img src="public/image/icons/del.png" width="30px"></a></td>
+                    <?php $array[$value["item_id"]]=$value["item_quantity"];?>
+                    
                 </tr>
                 <?php  $total = $total +($value["item_quantity"]*$value["item_price"]);  
                 }  ?>
@@ -40,6 +43,23 @@
                     <td><?php echo number_format($total,2,',',' ');?> €</td>
                     <td><a href="index.php?action=Panier&clear">remove all</a></td>
                 </tr>
+                <?php 
+                if (isset($_SESSION['id'])) { ?>
+                    <tr>
+                        <?php $data[]=$array; $data2 =json_encode($data);?>
+                        <input type="hidden" name="hidden_array" value='<?php echo $data2 ?>'>
+                        <td colspan="6"><input type="submit" name="buy" value="BUY"></td>
+                    </tr>
+                <?php
+                }else {?>
+                    <div style='margin-bottom:20px;' id="form">
+                        <p>
+                            <a href="index.php?action=Login">SIGN IN</a> OR <a href="index.php?action=Registration">REGISTER</a>
+                        </p> 
+                    </div>
+                <?php } ?>
+                
+                </form>
         </table> 
             <?php   }  ?>
 

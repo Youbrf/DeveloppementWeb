@@ -29,6 +29,10 @@ class ProductControllers{
         $this->ProductModel->M_delPanier($id);
     }
     public function C_delAllPanier(){
-        $this->ProductModel->C_clearPanier();
+        $this->ProductModel->M_clearPanier();
+    }
+    public function C_buyPanier($array){
+        $this->ProductModel->M_buyPanier($array);
+        require('view/frontend/paniers_valider.php');
     }
 }

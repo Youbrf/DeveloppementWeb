@@ -141,6 +141,8 @@ try {
             }elseif (isset($_GET['clear'])) {
                 $ProductController->C_delAllPanier();
                 header('Location: index.php?action=Panier');
+            }elseif (isset($_POST['buy'])) {
+                $ProductController->C_buyPanier($_POST['hidden_array']);
             }else {
                 $ProductController->C_showPanier();
             }
